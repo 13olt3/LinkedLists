@@ -1,0 +1,16 @@
+
+node links to list
+list takes node class objects
+
+node creates list item objects
+
+append appeneds items to list in the list class
+
+if next is null, append object to next else run recurse program
+
+if next != null
+run recursion on current object
+++1 to counter
+
+when next === null
+append next and counter
