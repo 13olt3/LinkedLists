@@ -31,7 +31,14 @@ class LinkedList {
     const newValue = this.#createListItem(value);
     if (this.list.head === null) {
       this.list.head = newValue;
+    } else if (this.list.head.next === null) {
+      this.list.head.next = newValue;
+    } else if (this.list.head.next.next === null) {
+      this.list.head.next.next = newValue;
+    } else if (this.list.head.next.next.next === null) {
+      this.list.head.next.next.next = newValue;
     }
+    // goes on forever
   }
 }
 
@@ -66,36 +73,9 @@ class Node {
 const testList = new LinkedList();
 const myNode2 = new Node("value1", "next1");
 
-let testObject = {
-  head: "value1",
-  next: {
-    value: "value2",
-    next: {
-      value: "value3",
-      next: {
-        value: "value4",
-        next: null,
-      },
-    },
-  },
-};
-function countNext(object) {
-  count = 0;
-  if (object.next === null) {
-    return 1;
-  } else if (object.next != null) {
-    return 2;
-  }
-}
-
-// testObject.next = myNode2.getObject();
-// myNode2.setNext(new Node("nestedValue", "nestedNext").getObject());
-
-// console.log(testObject.next.next.value);
-// console.log(testObject.next.next.next.next === null);
-
-// testList.appendValue("cat");
+testList.appendValue("cat");
 testList.appendValue("dog");
 testList.appendValue("mouse");
+testList.appendValue("rabbit");
 
 console.log(testList.getList());
