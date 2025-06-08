@@ -11,6 +11,12 @@ class LinkedList {
     return newValue;
   }
 
+  #nullCheck() {
+    if (this.object.head === null) {
+      return true;
+    } else return false;
+  }
+
   append(value) {
     if (this.object.head === null) {
       this.object.head = this.#createListItem(value);
@@ -63,7 +69,7 @@ class LinkedList {
 
   at(index) {
     if (index >= this.size()) {
-      return "index is too large";
+      return "Index is greater than list size.";
     } else {
       let count = 0;
       let valueAtIndex = this.object.head;
@@ -75,7 +81,19 @@ class LinkedList {
     }
   }
 
-  pop() {}
+  pop() {
+    if (this.object.head === null) {
+      return "List is already empty.";
+    } else {
+      let lastNode = this.object.head;
+      let newLastNode;
+      while (lastNode.getNext() != null) {
+        newLastNode = lastNode;
+        lastNode = lastNode.getNext();
+      }
+      return newLastNode.setNext(null);
+    }
+  }
 
   getList() {
     return this.object;
@@ -140,4 +158,5 @@ testList.append("horse");
 // console.log(testList.printValues());
 // console.log(`total count: ${testList.size()}`);
 
-console.log(testList.at(0));
+console.log(testList.printValues());
+console.log(testList.size());
