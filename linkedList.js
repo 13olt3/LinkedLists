@@ -4,41 +4,36 @@ class LinkedList {
   constructor() {
     this.object = {};
     this.object.head = null;
-
-    this.list = this.object;
-  }
-
-  getList() {
-    return this.list;
   }
 
   #createListItem(value) {
     let newValue = new Node(value);
-    return newValue.getObject();
-  }
-
-  #recursiveChecker(object, value) {
-    // let inputValue = value;
-    // if (inputValue.next != null) {
-    //   this.#recursiveChecker(inputValue.next);
-    // } else if (inputValue.next === null) {
-    //   inputValue.next = object;
-    // }
-    // return inputValue.next;
+    return newValue;
   }
 
   appendValue(value) {
-    const newValue = this.#createListItem(value);
-    if (this.list.head === null) {
-      this.list.head = newValue;
-    } else if (this.list.head.next === null) {
-      this.list.head.next = newValue;
-    } else if (this.list.head.next.next === null) {
-      this.list.head.next.next = newValue;
-    } else if (this.list.head.next.next.next === null) {
-      this.list.head.next.next.next = newValue;
+    let newObject = this.#createListItem(value);
+    if (this.object.head === null) {
+      this.object.head = newObject;
+    } else {
+      let nextObject = this.object.head;
+      while (nextObject.getNext() != null) {
+        nextObject = nextObject.getNext();
+      }
+      nextObject.setNext(newObject);
     }
-    // goes on forever
+  }
+
+  getList() {
+    return this.object;
+  }
+  printValues() {
+    let isNull = this.object.head;
+    while (isNull.getNext() != null) {
+      console.log(isNull.getValue());
+      isNull = isNull.getNext();
+    }
+    return "end of list";
   }
 }
 
@@ -71,11 +66,20 @@ class Node {
 }
 
 const testList = new LinkedList();
-const myNode2 = new Node("value1", "next1");
-
 testList.appendValue("cat");
 testList.appendValue("dog");
-testList.appendValue("mouse");
 testList.appendValue("rabbit");
+testList.appendValue("horse");
 
-console.log(testList.getList());
+// const myNode2 = new Node("value1", "next1");
+
+// let myNode = new Node("cat");
+// let adjNode = myNode;
+// myNode.setNext("asdf");
+// console.log(adjNode.getNext());
+
+// adjNode.setNext("notAsdf");
+// console.log(myNode.getNext());
+
+// console.log(testList.getList());
+console.log(testList.printValues());
