@@ -47,6 +47,36 @@ class LinkedList {
     }
   }
 
+  head() {
+    return this.object.head;
+  }
+  tail() {
+    if (this.object.head === null) {
+      return this.object.head;
+    }
+    let tail = this.object.head;
+    while (tail.getNext() != null) {
+      tail = tail.getNext();
+    }
+    return tail;
+  }
+
+  at(index) {
+    if (index >= this.size()) {
+      return "index is too large";
+    } else {
+      let count = 0;
+      let valueAtIndex = this.object.head;
+      while (count != index) {
+        count++;
+        valueAtIndex = valueAtIndex.getNext();
+      }
+      return valueAtIndex;
+    }
+  }
+
+  pop() {}
+
   getList() {
     return this.object;
   }
@@ -97,9 +127,9 @@ class Node {
 
 const testList = new LinkedList();
 testList.append("cat");
-// testList.append("dog");
-// testList.append("rabbit");
-// testList.append("horse");
+testList.append("dog");
+testList.append("rabbit");
+testList.append("horse");
 
 // testList.prepend("cat");
 // testList.prepend("dog");
@@ -108,5 +138,6 @@ testList.append("cat");
 
 // console.log(testList.getList());
 // console.log(testList.printValues());
+// console.log(`total count: ${testList.size()}`);
 
-console.log(`total count: ${testList.size()}`);
+console.log(testList.at(0));
