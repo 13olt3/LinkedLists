@@ -96,7 +96,6 @@ class LinkedList {
   }
 
   contains(value) {
-    // need to do iteration loop in the while loop
     if (this.#headIsNull()) {
       return "List is empty.";
     } else {
@@ -113,23 +112,39 @@ class LinkedList {
     }
   }
 
-  getList() {
-    return this.object;
-  }
-  printValues() {
-    let nullCheck = this.object.head;
-    if (nullCheck.getNext() === null) {
-      console.log(nullCheck.getValue());
+  find(value) {
+    if (this.#headIsNull()) {
+      return "List is empty.";
     } else {
-      while (nullCheck.getNext() != null) {
-        console.log(nullCheck.getValue());
-        nullCheck = nullCheck.getNext();
-        if (nullCheck.getNext() === null) {
-          console.log(nullCheck.getValue());
+      let currentNode = this.object.head;
+      let count = 0;
+      while (currentNode.getNext() != null) {
+        if (currentNode.getValue() === value) {
+          return count;
+        } else {
+          currentNode = currentNode.getNext();
+          count++;
         }
       }
+      if (currentNode.getValue() === value) {
+        return count;
+      } else return null;
     }
-    return "end of list";
+  }
+
+  toString() {
+    let outputString = "";
+    if (this.#headIsNull()) {
+      return "Empty list";
+    } else {
+      let nextNode = this.object.head;
+      while (nextNode.getNext() != null) {
+        outputString = outputString + `( ${nextNode.getValue()} ) -> `;
+        nextNode = nextNode.getNext();
+      }
+      outputString = outputString + `( ${nextNode.getValue()} ) -> null`;
+    }
+    return outputString;
   }
 }
 
@@ -172,9 +187,7 @@ testList.append("horse");
 // testList.prepend("rabbit");
 // testList.prepend("horse");
 
-// console.log(testList.getList());
-// console.log(testList.printValues());
-// console.log(`total count: ${testList.size()}`);
-// console.log(testList.printValues());
-
-console.log(testList.contains("horse"));
+// console.log(testList.find("horse"));
+console.log(testList.toString());
+testList.pop();
+console.log(testList.toString());
