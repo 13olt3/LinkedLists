@@ -14,3 +14,17 @@ run recursion on current object
 
 when next === null
 append next and counter
+
+
+
+head
+next: points to first object
+object with 
+value: this value
+next: points to next object
+
+var is next node object and then check next
+if next is not null,
+then var is next node object
+if next is null
+then append new object to next node object

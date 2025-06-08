@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.object = {};
     this.object.head = null;
@@ -146,6 +146,57 @@ class LinkedList {
     }
     return outputString;
   }
+
+  insertAt(value, index) {
+    if (index > this.size()) {
+      return "Input index is larger than list size.";
+    }
+    if (index === this.size()) {
+      return this.append(value);
+    }
+
+    let nodeCounter = 0;
+    let currentNode = this.object.head;
+    let insertionNode = this.#createListItem(value);
+    let priorNode;
+    if (index === 0) {
+      insertionNode.setNext(currentNode);
+      this.object.head = insertionNode;
+    } else {
+      while (nodeCounter < index) {
+        nodeCounter++;
+        priorNode = currentNode;
+        currentNode = currentNode.getNext();
+      }
+      priorNode.setNext(insertionNode);
+      insertionNode.setNext(currentNode);
+    }
+  }
+
+  removeAt(index) {
+    if (index >= this.size()) {
+      return "Input index is larger than list size.";
+    }
+    if (index === this.size()) {
+      return this.pop();
+    }
+    if (index === 0 && this.size() === 0) {
+      return "List is empty.";
+    }
+    let nodeCounter = 0;
+    let currentNode = this.object.head;
+    let priorNode;
+    if (index === 0) {
+      this.object.head = this.object.head.getNext();
+    } else {
+      while (nodeCounter < index) {
+        nodeCounter++;
+        priorNode = currentNode;
+        currentNode = currentNode.getNext();
+      }
+      priorNode.setNext(currentNode.getNext());
+    }
+  }
 }
 
 class Node {
@@ -171,23 +222,4 @@ class Node {
   setNext(input) {
     this.object.next = input;
   }
-  getObject() {
-    return this.object;
-  }
 }
-
-const testList = new LinkedList();
-testList.append("cat");
-testList.append("dog");
-testList.append("rabbit");
-testList.append("horse");
-
-// testList.prepend("cat");
-// testList.prepend("dog");
-// testList.prepend("rabbit");
-// testList.prepend("horse");
-
-// console.log(testList.find("horse"));
-console.log(testList.toString());
-testList.pop();
-console.log(testList.toString());
