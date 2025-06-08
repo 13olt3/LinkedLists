@@ -11,14 +11,14 @@ class LinkedList {
     return newValue;
   }
 
-  #nullCheck() {
+  #headIsNull() {
     if (this.object.head === null) {
       return true;
     } else return false;
   }
 
   append(value) {
-    if (this.object.head === null) {
+    if (this.#headIsNull()) {
       this.object.head = this.#createListItem(value);
     } else {
       let nextObject = this.object.head;
@@ -30,7 +30,7 @@ class LinkedList {
   }
 
   prepend(value) {
-    if (this.object.head === null) {
+    if (this.#headIsNull()) {
       this.object.head = this.#createListItem(value);
     } else {
       let newHead = this.#createListItem(value);
@@ -40,7 +40,7 @@ class LinkedList {
   }
 
   size() {
-    if (this.object.head === null) {
+    if (this.#headIsNull()) {
       return 0;
     } else {
       let nextObject = this.object.head;
@@ -57,7 +57,7 @@ class LinkedList {
     return this.object.head;
   }
   tail() {
-    if (this.object.head === null) {
+    if (this.#headIsNull()) {
       return this.object.head;
     }
     let tail = this.object.head;
@@ -82,7 +82,7 @@ class LinkedList {
   }
 
   pop() {
-    if (this.object.head === null) {
+    if (this.#headIsNull()) {
       return "List is already empty.";
     } else {
       let lastNode = this.object.head;
@@ -92,6 +92,24 @@ class LinkedList {
         lastNode = lastNode.getNext();
       }
       return newLastNode.setNext(null);
+    }
+  }
+
+  contains(value) {
+    // need to do iteration loop in the while loop
+    if (this.#headIsNull()) {
+      return "List is empty.";
+    } else {
+      let currentNode = this.object.head;
+      while (currentNode.getNext() != null) {
+        if (currentNode.getValue() === value) {
+          return true;
+        }
+        currentNode = currentNode.getNext();
+      }
+      if (currentNode.getValue() === value) {
+        return true;
+      } else return false;
     }
   }
 
@@ -157,6 +175,6 @@ testList.append("horse");
 // console.log(testList.getList());
 // console.log(testList.printValues());
 // console.log(`total count: ${testList.size()}`);
+// console.log(testList.printValues());
 
-console.log(testList.printValues());
-console.log(testList.size());
+console.log(testList.contains("horse"));
