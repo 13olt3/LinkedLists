@@ -11,16 +11,39 @@ class LinkedList {
     return newValue;
   }
 
-  appendValue(value) {
-    let newObject = this.#createListItem(value);
+  append(value) {
     if (this.object.head === null) {
-      this.object.head = newObject;
+      this.object.head = this.#createListItem(value);
     } else {
       let nextObject = this.object.head;
       while (nextObject.getNext() != null) {
         nextObject = nextObject.getNext();
       }
-      nextObject.setNext(newObject);
+      nextObject.setNext(this.#createListItem(value));
+    }
+  }
+
+  prepend(value) {
+    if (this.object.head === null) {
+      this.object.head = this.#createListItem(value);
+    } else {
+      let newHead = this.#createListItem(value);
+      newHead.setNext(this.object.head);
+      this.object.head = newHead;
+    }
+  }
+
+  size() {
+    if (this.object.head === null) {
+      return 0;
+    } else {
+      let nextObject = this.object.head;
+      let count = 0;
+      while (nextObject != null) {
+        count++;
+        nextObject = nextObject.getNext();
+      }
+      return count;
     }
   }
 
@@ -28,10 +51,17 @@ class LinkedList {
     return this.object;
   }
   printValues() {
-    let isNull = this.object.head;
-    while (isNull.getNext() != null) {
-      console.log(isNull.getValue());
-      isNull = isNull.getNext();
+    let nullCheck = this.object.head;
+    if (nullCheck.getNext() === null) {
+      console.log(nullCheck.getValue());
+    } else {
+      while (nullCheck.getNext() != null) {
+        console.log(nullCheck.getValue());
+        nullCheck = nullCheck.getNext();
+        if (nullCheck.getNext() === null) {
+          console.log(nullCheck.getValue());
+        }
+      }
     }
     return "end of list";
   }
@@ -66,20 +96,17 @@ class Node {
 }
 
 const testList = new LinkedList();
-testList.appendValue("cat");
-testList.appendValue("dog");
-testList.appendValue("rabbit");
-testList.appendValue("horse");
+testList.append("cat");
+// testList.append("dog");
+// testList.append("rabbit");
+// testList.append("horse");
 
-// const myNode2 = new Node("value1", "next1");
-
-// let myNode = new Node("cat");
-// let adjNode = myNode;
-// myNode.setNext("asdf");
-// console.log(adjNode.getNext());
-
-// adjNode.setNext("notAsdf");
-// console.log(myNode.getNext());
+// testList.prepend("cat");
+// testList.prepend("dog");
+// testList.prepend("rabbit");
+// testList.prepend("horse");
 
 // console.log(testList.getList());
-console.log(testList.printValues());
+// console.log(testList.printValues());
+
+console.log(`total count: ${testList.size()}`);
